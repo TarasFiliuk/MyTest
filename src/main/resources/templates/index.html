@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">-->
+<!--console.log(2+5);-->
+<!--</script>-->
+<body>
+GetAll
+<button id="get">get</button>
+<div class="convert"></div>
+<div id="cone"></div>
+SaveUser
+<input type="text" id="name" placeholder="name">
+<input type="text" id="age" placeholder="age">
+<button id="saveUser">save</button>
+
+SaveArticle
+<input type="text" id="text" placeholder="text">
+<input type="text" id="user_id">
+<p><select id="color">-->
+    <option disabled>select color</option>
+    <option value="RED">red</option>
+    <option value="GREEN">green</option>
+    <option value="BLUE">blue</option>
+</select>
+</p>
+<button id="saveArticle">save</button>
+
+<button id="FindArticleWithColor">FindArticleWithColor</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $("#FindArticleWithColor").click(function () {
+        $.ajax({
+            url: '/getUsersArticle',
+            type: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (res) {
+                for (let obj of res) {
+                     let $2 = $('</div>', {text: obj.id + " " + obj.name});
+                    $(".convert").append($2)
+                    console.log("sdfsdf")
+
+                }
+            },
+            error: function (err) {
+                console.log(err)
+
+            }
+        })
+
+    })
+    $("#get").click(function () {
+        $.ajax({
+            url: '/getAll',
+            type: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+        success: function (res) {
+            for (let obj of res) {
+                    let $div = $('<div/>', {text: obj.id + " " + obj.name});
+                $(".convert").append($div)
+                }
+
+            },
+            error: function (err) {
+                console.log(err)
+
+            }
+
+        })
+
+    });
+    $("#saveUser").click(function () {
+        let $name = $('#name');
+        console.log($name);
+        let name = $name.val();
+        console.log(name);
+        let $age = $('#age');
+        let age = $age.val();
+        let user = JSON.stringify({name, age});
+        console.log(user);
+        $.ajax({
+            url: '/saveUser',
+            type: 'POST',
+            contentType: 'application/json',
+            data: user,
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    })
+    $("#saveArticle").click(function () {
+        let $text = $('#text');
+        let text = $text.val();
+        let $color = $('#color');
+        let color = $color.val();
+        let $userId = $('#user_id');
+        let user_id = $userId.val();
+        let article = JSON.stringify({text, color, user_id});
+        $.ajax({
+            url: '/saveArticle?user_id=' + user_id,
+            type: 'POST',
+            contentType: 'application/json',
+            data: article,
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    })
+
+</script>
+<!--<form action="/saveArticle" method="post">-->
+<!--<input type="text" name="text" placeholder="text">-->
+<!--<p><select name="color">-->
+<!--<option disabled>select color</option>-->
+<!--<option value="RED">red</option>-->
+<!--<option value="GREEN">green</option>-->
+<!--<option value="BLUE">blue</option>-->
+<!--</select>-->
+<!--</p>-->
+<!--<input type="submit">-->
+
+</body>
+</html>
