@@ -43,6 +43,7 @@ public class MyRestController {
     public boolean saveArticle(@RequestBody Article article,
                                @RequestParam int user_id
     ) {
+        System.out.println(article);
         User user = userDAO.findById(user_id);
         article.setUser(user);
         articleService.save(article);
