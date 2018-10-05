@@ -7,5 +7,5 @@ import test.my.test.entity.Color;
 import java.util.List;
 
 public interface ArticleDAO extends JpaRepository<Article,Integer> {
-    List<Article> findByColor(Color color);
+//    List<Article> findByColor(Color color);
 }

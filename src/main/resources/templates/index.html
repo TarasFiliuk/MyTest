@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">-->
-<!--console.log(2+5);-->
-<!--</script>-->
 <body>
 GetAll
 <button id="get">get</button>
 <div class="convert"></div>
-<div id="cone"></div>
+<button id="Find">FindArticleWithColor</button>
+<div class="cone"></div>
+<div class="asd"></div>
+    <button id="findByColor">FindByColor</button>
 SaveUser
 <input type="text" id="name" placeholder="name">
 <input type="text" id="age" placeholder="age">
@@ -29,21 +29,42 @@ SaveArticle
 </p>
 <button id="saveArticle">save</button>
 
-<button id="FindArticleWithColor">FindArticleWithColor</button>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-    $("#FindArticleWithColor").click(function () {
+    $("#findByColor").click(function () {
+        $.ajax({
+            url:'/getUserByColor',
+            type:'Get',
+            contentType:'application/json',
+            dataType:'json',
+            success:function (res) {
+                console.log(res);
+                for (let obj of res) {
+                    let $user = $('</div>',{text:obj.name});
+                    $(".asd").append($user);
+                    console.log("$user")
+                }},
+                error:function (err) {
+                console.log(err)
+
+                }
+        })
+
+    });
+    $("#Find").click(function () {
         $.ajax({
             url: '/getUsersArticle',
             type: 'GET',
             contentType: 'application/json',
             dataType: 'json',
             success: function (res) {
+                console.log(res);
                 for (let obj of res) {
-                     let $2 = $('</div>', {text: obj.id + " " + obj.name});
-                    $(".convert").append($2)
-                    console.log("sdfsdf")
+                     let $2 = $('</div>', {text: obj.name});
+                    $(".cone").append($2);
+                    console.log("asda")
+
 
                 }
             },
@@ -88,6 +109,7 @@ SaveArticle
             url: '/saveUser',
             type: 'POST',
             contentType: 'application/json',
+
             data: user,
             dataType: 'json',
             success: function (res) {
@@ -121,6 +143,7 @@ SaveArticle
         })
     })
 
+
 </script>
 <!--<form action="/saveArticle" method="post">-->
 <!--<input type="text" name="text" placeholder="text">-->
@@ -132,6 +155,5 @@ SaveArticle
 <!--</select>-->
 <!--</p>-->
 <!--<input type="submit">-->
-
 </body>
 </html>

@@ -28,19 +28,13 @@ public class MyRestController {
 
     @PostMapping("/saveUser")
     public boolean saveUser(@RequestBody User user) {
-//        User user = new User();
-//        user.setName(name);
-//        user.setAge(age);
-
         userService.save(user);
         return true;
     }
 
     @GetMapping("/getAll")
     public List<User> getAllUser() {
-        List<User> all = userService.findAll();
-        List<User> collect = all.stream().filter(user -> user.getAge() > 20).collect(Collectors.toList());
-        return collect;
+        return userService.findAll().stream().filter(user -> user.getAge() > 20).collect(Collectors.toList());
 
 
     }
@@ -48,20 +42,27 @@ public class MyRestController {
     @PostMapping("/saveArticle")
     public boolean saveArticle(@RequestBody Article article,
                                @RequestParam int user_id
-                               ) {
+    ) {
         User user = userDAO.findById(user_id);
         article.setUser(user);
         articleService.save(article);
         return true;
     }
-//    @GetMapping("/getUsersArticle")
-//    public List<User> getUserArticle(){
+
+    @GetMapping("/getUsersArticle")
+    public Set<String> getName() {
+        return userService.findAll().stream().filter(user -> user.getArticles().size() > 3).map(user -> user.getName()).collect(Collectors.toSet());
+    }
+
+//    @GetMapping("/getcollor")
+//    public List<User> findByColor(String color) {
 //        List<User> all = userService.findAll();
 //
-////        all.stream().filter()
-////        List<Article> articles = user.getArticles();
-////        List<Article> collect = articles.stream().filter(article -> article.getColor() == Color.RED).collect(Collectors.toList());
-//            return;
-//        }
+//
+//    }
+    @GetMapping("/getUserByColor")
+    public List<User> asd(){
+    return articleService.findAll().stream().filter(article -> article.getColor().isEqual("green")).map(Article::getUser).collect(Collectors.toList());
     }
+}
 

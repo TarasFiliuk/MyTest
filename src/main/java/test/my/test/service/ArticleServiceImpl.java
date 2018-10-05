@@ -23,7 +23,10 @@ public class ArticleServiceImpl implements ArticleService {
         articleDAO.save(article);
     }
 
-
+    @Override
+    public List<Article> findAll() {
+        return articleDAO.findAll();
+    }
 
 
 }

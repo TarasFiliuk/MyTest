@@ -1,5 +1,6 @@
 package test.my.test.service;
 
+import test.my.test.entity.Article;
 import test.my.test.entity.Color;
 import test.my.test.entity.User;
 
@@ -11,5 +12,5 @@ public interface UserService {
     List<User> findAll();
     User findById(int id);
 //    User findUserByName(String name);
-
+List<User> findByArticles(User user);
 }
