@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
     public List<User> findByArticles(User user)
     {
 //        User user = new User();
+
         List<User> users = userDAO.findAll();
         List<Article> articles = user.getArticles();
         List<Article> collect = articles.stream().filter(article1 ->articles.stream().equals(Color.GREEN)).collect(Collectors.toList());
