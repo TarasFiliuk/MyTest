@@ -9,8 +9,7 @@ import test.my.test.service.UserServiceImpl;
 import static org.junit.Assert.*;
 
 public class MyRestControllerTest {
-    @Autowired
-UserServiceImpl userService;
+
     User ideal;
 
 
