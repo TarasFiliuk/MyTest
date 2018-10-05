@@ -55,14 +55,8 @@ public class MyRestController {
         return userService.findAll().stream().filter(user -> user.getArticles().size() > 3).map(user -> user.getName()).collect(Collectors.toSet());
     }
 
-//    @GetMapping("/getcollor")
-//    public List<User> findByColor(String color) {
-//        List<User> all = userService.findAll();
-//
-//
-//    }
     @GetMapping("/getUserByColor")
-    public List<User> asd(){
+    public List<User> getUserByColor(){
     return articleService.findAll().stream().filter(article -> article.getColor().isEqual("green")).map(Article::getUser).collect(Collectors.toList());
     }
 }
